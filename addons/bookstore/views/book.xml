@@ -1,0 +1,49 @@
+<odoo>
+    <record model="ir.actions.act_window" id="bs_book_action">
+        <field name="name">Books</field>
+        <field name="res_model">bs.book</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Book
+            </p>
+        </field>
+    </record>
+
+    <menuitem name="Books"
+              id="bs_book_menu"
+              action="bs_book_action"
+              parent="bs_base_menu"/>
+
+    <!-- Views -->
+    <record model="ir.ui.view" id="bs_book_tree">
+        <field name="name">Book List</field>
+        <field name="model">bs.book</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="date_published"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="medofa_env_form_view">
+        <field name="name">Book Form</field>
+        <field name="model">bs.book</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group string="Info">
+                            <field name="name"/>
+                            <field name="date_published"/>
+                        </group>
+                        <group string="Cover">
+                            <field name="cover" widget="image" nolabel="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
