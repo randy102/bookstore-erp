@@ -23,11 +23,13 @@
             <tree>
                 <field name="name"/>
                 <field name="date_published"/>
+                <field name="author_ids" widget="many2many_tags"/>
+                <field name="stock_qty"/>
             </tree>
         </field>
     </record>
 
-    <record model="ir.ui.view" id="medofa_env_form_view">
+    <record model="ir.ui.view" id="bs_book_form">
         <field name="name">Book Form</field>
         <field name="model">bs.book</field>
         <field name="arch" type="xml">
@@ -36,12 +38,39 @@
                     <group>
                         <group string="Info">
                             <field name="name"/>
+                            <field name="author_ids" widget="many2many_tags"/>
                             <field name="date_published"/>
+                            <field name="page" widget="integer"/>
+
+                            <label for="size_x"/>
+                            <div>
+                                <field name="size_x" nolabel="1" class="oe_inline"/>
+                                cm
+                            </div>
+
+                            <label for="size_y"/>
+                            <div>
+                                <field name="size_y" nolabel="1" class="oe_inline"/>
+                                cm
+                            </div>
+
+                            <label for="size_z"/>
+                            <div>
+                                <field name="size_z" nolabel="1" class="oe_inline"/>
+                                cm
+                            </div>
                         </group>
+
                         <group string="Cover">
                             <field name="cover" widget="image" nolabel="1"/>
                         </group>
                     </group>
+
+                    <notebook>
+                        <page string="Summary">
+                            <field name="summary" nolabel="1"/>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>

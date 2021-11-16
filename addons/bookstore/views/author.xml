@@ -1,0 +1,55 @@
+<odoo>
+    <record model="ir.actions.act_window" id="bs_author_action">
+        <field name="name">Authors</field>
+        <field name="res_model">bs.author</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Author
+            </p>
+        </field>
+    </record>
+
+    <menuitem name="Authors"
+              id="bs_author_menu"
+              action="bs_author_action"
+              parent="bs_base_menu"/>
+
+    <!-- Views -->
+    <record model="ir.ui.view" id="bs_author_tree">
+        <field name="name">Author List</field>
+        <field name="model">bs.author</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="date_of_birth"/>
+                <field name="book_ids"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="bs_author_form">
+        <field name="name">Author Form</field>
+        <field name="model">bs.author</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="date_of_birth"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Books">
+                            <field name="book_ids" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

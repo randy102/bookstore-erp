@@ -22,5 +22,6 @@
         'security/ir.model.access.csv',
         'views/base.xml',
         'views/book.xml',
+        'views/author.xml',
     ],
 }
