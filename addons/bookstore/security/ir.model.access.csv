@@ -2,3 +2,4 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_bs_book,bs.book,model_bs_book,base.group_user,1,1,1,1
 access_bs_author,bs.author,model_bs_author,base.group_user,1,1,1,1
 access_bs_employee,bs.employee,model_bs_employee,base.group_user,1,1,1,1
+access_bs_supplier,bs.supplier,model_bs_supplier,base.group_user,1,1,1,1

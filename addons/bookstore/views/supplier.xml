@@ -1,0 +1,51 @@
+<odoo>
+    <record model="ir.actions.act_window" id="bs_supplier_action">
+        <field name="name">Suppliers</field>
+        <field name="res_model">bs.supplier</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Supplier
+            </p>
+        </field>
+    </record>
+
+    <menuitem name="Suppliers"
+              id="bs_supplier_menu"
+              action="bs_supplier_action"
+              parent="bs_base_menu"/>
+
+    <!-- Views -->
+    <record model="ir.ui.view" id="bs_supplier_tree">
+        <field name="name">Supplier List</field>
+        <field name="model">bs.supplier</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="phone"/>
+                <field name="address"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="bs_supplier_form">
+        <field name="name">Supplier Form</field>
+        <field name="model">bs.supplier</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="phone"/>
+                        </group>
+
+                        <group>
+                            <field name="address"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
