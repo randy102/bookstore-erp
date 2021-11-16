@@ -1,0 +1,15 @@
+<odoo>
+    <record model="ir.ui.view" id="bs_sale_order_line_tree">
+        <field name="name">Sale Order Line List</field>
+        <field name="model">bs.sale.order.line</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="book_id"/>
+                <field name="qty"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="unit_price" widget="monetary"/>
+                <field name="total_amount" widget="monetary"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

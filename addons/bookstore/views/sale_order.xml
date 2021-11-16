@@ -1,0 +1,87 @@
+<odoo>
+    <record model="ir.actions.act_window" id="bs_sale_order_action">
+        <field name="name">Sale Orders</field>
+        <field name="res_model">bs.sale.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Sale Order
+            </p>
+        </field>
+    </record>
+
+    <menuitem name="Sale Orders"
+              id="bs_sale_order_menu"
+              action="bs_sale_order_action"
+              parent="bs_base_menu"/>
+
+    <!-- Views -->
+    <record model="ir.ui.view" id="bs_sale_order_tree">
+        <field name="name">Sale Order List</field>
+        <field name="model">bs.sale.order</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="customer_name"/>
+                <field name="state"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="total_amount" widget="monetary"/>
+                <field name="create_date"/>
+                <field name="date_confirmed"/>
+                <field name="date_delivered"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="bs_sale_order_form">
+        <field name="name">Sale Order Form</field>
+        <field name="model">bs.sale.order</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,delivered"/>
+                </header>
+                <sheet>
+                    <group>
+                        <h1>
+                            <field name="name" nolabel="1" attrs="{'invisible': [('name','=',False)]}"/>
+                        </h1>
+                    </group>
+
+                    <group>
+                        <group>
+                            <field name="customer_name"/>
+                            <field name="customer_phone"/>
+                            <field name="customer_address"/>
+                        </group>
+
+                        <group>
+                            <field name="date_confirmed"/>
+                            <field name="date_delivered"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Order Lines">
+                            <field name="line_ids" nolabel="1"/>
+                            <field name="currency_id" invisible="1"/>
+
+                            <group name="note_group" col="6">
+                                <group colspan="4"/>
+                                <group class="oe_subtotal_footer oe_right" colspan="2">
+                                    <div class="oe_inline o_td_label">
+                                        <label for="total_amount"/>
+                                    </div>
+                                    <h2>
+                                        <field name="total_amount" widget="monetary"/>
+                                    </h2>
+                                </group>
+                                <div class="oe_clear"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

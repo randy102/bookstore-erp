@@ -19,11 +19,14 @@
 
     # always loaded
     'data': [
+        'data/ir_sequence.xml',
         'security/ir.model.access.csv',
         'views/base.xml',
         'views/book.xml',
         'views/author.xml',
         'views/employee.xml',
         'views/supplier.xml',
+        'views/sale_order.xml',
+        'views/sale_order_line.xml',
     ],
 }
