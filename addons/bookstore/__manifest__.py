@@ -23,5 +23,6 @@
         'views/base.xml',
         'views/book.xml',
         'views/author.xml',
+        'views/employee.xml',
     ],
 }

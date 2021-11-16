@@ -1,0 +1,60 @@
+<odoo>
+    <record model="ir.actions.act_window" id="bs_employee_action">
+        <field name="name">Employee</field>
+        <field name="res_model">bs.employee</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Employee
+            </p>
+        </field>
+    </record>
+
+    <menuitem name="Employees"
+              id="bs_employee_menu"
+              action="bs_employee_action"
+              parent="bs_base_menu"/>
+
+    <!-- Views -->
+    <record model="ir.ui.view" id="bs_employee_tree">
+        <field name="name">Employee List</field>
+        <field name="model">bs.employee</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="email"/>
+                <field name="phone"/>
+                <field name="address"/>
+                <field name="department"/>
+                <field name="user_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="bs_employee_form">
+        <field name="name">Employee Form</field>
+        <field name="model">bs.employee</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_create_user" type="object" string="CREATE USER" attrs="{'invisible': [('user_id','!=', False)]}"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="phone"/>
+                            <field name="address"/>
+                        </group>
+
+                        <group>
+                            <field name="email"/>
+                            <field name="department"/>
+                            <field name="user_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
