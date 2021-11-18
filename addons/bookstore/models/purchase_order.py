@@ -10,7 +10,7 @@ PURCHASE_STATES = [
 
 class PurchaseOrder(models.Model):
     _name = 'bs.purchase.order'
-    _inherit = ['bs.sequence.name']
+    _inherit = ['bs.sequence.code']
     _seq_code = 'bs.purchase.order'
     _rec_name = 'code'
 

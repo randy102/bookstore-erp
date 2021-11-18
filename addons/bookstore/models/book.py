@@ -6,7 +6,7 @@ from odoo import models, fields
 class Book(models.Model):
     _name = 'bs.book'
     _description = 'Book'
-    _inherit = ['bs.sequence.name']
+    _inherit = ['bs.sequence.code']
     _seq_code = 'bs.book'
 
     name = fields.Char()

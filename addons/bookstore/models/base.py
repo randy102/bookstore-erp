@@ -2,7 +2,7 @@ from odoo import models, fields, api
 
 
 class SequenceName(models.AbstractModel):
-    _name = 'bs.sequence.name'
+    _name = 'bs.sequence.code'
     _seq_code = ''
 
     code = fields.Char(readonly=True)

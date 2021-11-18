@@ -10,7 +10,7 @@ SALE_STATES = [
 
 class SaleOrder(models.Model):
     _name = 'bs.sale.order'
-    _inherit = ['bs.sequence.name']
+    _inherit = ['bs.sequence.code']
     _seq_code = 'bs.sale.order'
     _rec_name = 'code'
 

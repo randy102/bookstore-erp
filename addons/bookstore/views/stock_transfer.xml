@@ -52,7 +52,7 @@
                 <field name="state" widget="badge" decoration-success="state == 'confirmed'"
                        decoration-muted="state == 'draft'"/>
                 <field name="sale_id" string="Sale Order" invisible="context.get('default_type') == 'import'"/>
-                <field name="purchase_id" string="Sale Order" invisible="context.get('default_type') == 'export'"/>
+                <field name="purchase_id" string="Purchase Order" invisible="context.get('default_type') == 'export'"/>
                 <field name="date_confirmed"/>
                 <field name="create_date"/>
             </tree>

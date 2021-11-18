@@ -15,7 +15,7 @@ TRANSFER_STATES = [
 
 class StockTransfer(models.Model):
     _name = 'bs.stock.transfer'
-    _inherit = ['bs.sequence.name']
+    _inherit = ['bs.sequence.code']
     _seq_code = 'bs.stock.transfer'
     _rec_name = 'code'
 
