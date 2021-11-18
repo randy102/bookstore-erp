@@ -47,7 +47,7 @@
                     <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,delivered"/>
                 </header>
                 <sheet>
-                    <div class="oe_button_box" name="button_box">
+                    <div class="oe_button_box" name="button_box" attrs="{'invisible': [('state','=','draft')]}">
                         <button class="oe_stat_button" name="action_open_transfer" icon="fa-exchange" type="object">
                             <div class="o_field_widget o_stat_info">
                                 <span class="o_stat_text">Transfer</span>
