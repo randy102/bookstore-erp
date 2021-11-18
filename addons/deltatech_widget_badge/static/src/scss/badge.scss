@@ -5,4 +5,13 @@
 
 .o_field_widget.badge {
     font-size: 85%;
+    border: none;
+}
+
+.o_field_widget.badge-success {
+    background-color: #56cf6f;
+}
+
+.o_field_widget.badge-info {
+    background-color: #99d8eb;
 }
