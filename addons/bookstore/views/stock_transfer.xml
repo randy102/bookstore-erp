@@ -51,6 +51,7 @@
                 <field name="state" widget="badge" decoration-success="state == 'confirmed'"
                        decoration-muted="state == 'draft'"/>
                 <field name="sale_id" string="Sale Order" invisible="context.get('default_type') == 'import'"/>
+                <field name="purchase_id" string="Sale Order" invisible="context.get('default_type') == 'export'"/>
                 <field name="date_confirmed"/>
                 <field name="create_date"/>
             </tree>
@@ -79,6 +80,7 @@
                             <field name="type" widget="badge" decoration-info="type == 'import'"
                                    decoration-danger="type == 'export'"/>
                             <field name="sale_id" invisible="context.get('default_type') == 'import'"/>
+                            <field name="purchase_id" invisible="context.get('default_type') == 'export'"/>
                         </group>
 
                         <group>

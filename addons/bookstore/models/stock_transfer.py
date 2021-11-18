@@ -21,6 +21,7 @@ class StockTransfer(models.Model):
 
     stocker_id = fields.Many2one('bs.employee')
     sale_id = fields.Many2one('bs.sale.order', ondelete='cascade', readonly=True, string='Sale Order')
+    purchase_id = fields.Many2one('bs.purchase.order', ondelete='cascade', readonly=True, string='Purchase Order')
     line_ids = fields.One2many('bs.stock.transfer.line', 'transfer_id')
 
     date_confirmed = fields.Datetime(readonly=True)
@@ -35,6 +36,14 @@ class StockTransfer(models.Model):
             'line_ids': line_data
         }])
 
+    def create_import(self, purchase_order):
+        line_data = generate_transfer_line_data(purchase_order.line_ids)
+        return self.create([{
+            'purchase_id': purchase_order.id,
+            'type': 'import',
+            'line_ids': line_data
+        }])
+
     def action_confirm(self):
         for transfer in self:
             transfer.state = 'confirmed'
@@ -42,6 +51,8 @@ class StockTransfer(models.Model):
             transfer.line_ids.update_stock_qty()
             if transfer.sale_id:
                 transfer.sale_id.state = 'delivered'
+            if transfer.purchase_id:
+                transfer.purchase_id.state = 'received'
 
     def unlink(self):
         for transfer in self:

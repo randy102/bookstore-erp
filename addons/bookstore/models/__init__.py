@@ -7,5 +7,7 @@ from . import employee
 from . import supplier
 from . import sale_order
 from . import sale_order_line
+from . import purchase_order
+from . import purchase_order_line
 from . import stock_transfer
 from . import stock_transfer_line

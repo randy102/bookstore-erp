@@ -1,49 +1,49 @@
 <odoo>
-    <record model="ir.actions.act_window" id="bs_sale_order_action">
-        <field name="name">Sale Orders</field>
-        <field name="res_model">bs.sale.order</field>
+    <record model="ir.actions.act_window" id="bs_purchase_order_action">
+        <field name="name">Purchase Orders</field>
+        <field name="res_model">bs.purchase.order</field>
         <field name="view_mode">tree,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
-                Create a new Sale Order
+                Create a new Purchase Order
             </p>
         </field>
     </record>
 
-    <menuitem name="Sale Orders"
-              id="bs_sale_order_menu"
-              action="bs_sale_order_action"
+    <menuitem name="Purchase Orders"
+              id="bs_purchase_order_menu"
+              action="bs_purchase_order_action"
               parent="bs_base_menu"/>
 
     <!-- Views -->
-    <record model="ir.ui.view" id="bs_sale_order_tree">
-        <field name="name">Sale Order List</field>
-        <field name="model">bs.sale.order</field>
+    <record model="ir.ui.view" id="bs_purchase_order_tree">
+        <field name="name">Purchase Order List</field>
+        <field name="model">bs.purchase.order</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="code"/>
-                <field name="seller_id"/>
-                <field name="customer_name"/>
+                <field name="buyer_id"/>
+                <field name="supplier_id"/>
                 <field name="state" widget="badge" decoration-success="state == 'confirmed'"
-                       decoration-muted="state == 'draft'" decoration-info="state == 'delivered'"/>
+                       decoration-muted="state == 'draft'" decoration-info="state == 'received'"/>
                 <field name="currency_id" invisible="1"/>
                 <field name="total_amount" widget="monetary"/>
                 <field name="create_date"/>
                 <field name="date_confirmed"/>
-                <field name="date_delivered"/>
+                <field name="date_received"/>
             </tree>
         </field>
     </record>
 
-    <record model="ir.ui.view" id="bs_sale_order_form">
-        <field name="name">Sale Order Form</field>
-        <field name="model">bs.sale.order</field>
+    <record model="ir.ui.view" id="bs_purchase_order_form">
+        <field name="name">Purchase Order Form</field>
+        <field name="model">bs.purchase.order</field>
         <field name="arch" type="xml">
             <form>
                 <header>
                     <button name="action_confirm" type="object" string="Confirm" class="oe_highlight"
-                            attrs="{'invisible': [('state','in',['confirmed','delivered'])]}"/>
-                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,delivered"/>
+                            attrs="{'invisible': [('state','in',['confirmed','received'])]}"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,received"/>
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
@@ -62,15 +62,13 @@
 
                     <group>
                         <group>
-                            <field name="customer_name"/>
-                            <field name="customer_phone"/>
-                            <field name="customer_address"/>
+                            <field name="buyer_id"/>
+                            <field name="supplier_id"/>
                         </group>
 
                         <group>
-                            <field name="seller_id"/>
                             <field name="date_confirmed"/>
-                            <field name="date_delivered"/>
+                            <field name="date_received"/>
                         </group>
                     </group>
 
