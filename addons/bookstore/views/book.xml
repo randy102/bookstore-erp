@@ -26,6 +26,7 @@
                 <field name="date_published"/>
                 <field name="author_ids" widget="many2many_tags"/>
                 <field name="stock_qty"/>
+                <field name="create_date"/>
             </tree>
         </field>
     </record>

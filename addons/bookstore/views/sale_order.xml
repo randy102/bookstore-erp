@@ -32,6 +32,7 @@
                 <field name="create_date"/>
                 <field name="date_confirmed"/>
                 <field name="date_delivered"/>
+                <field name="create_date"/>
             </tree>
         </field>
     </record>
