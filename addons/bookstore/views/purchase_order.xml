@@ -13,7 +13,8 @@
     <menuitem name="Purchase Orders"
               id="bs_purchase_order_menu"
               action="bs_purchase_order_action"
-              parent="bs_base_menu"/>
+              parent="bs_base_menu"
+              sequence="3"/>
 
     <!-- Views -->
     <record model="ir.ui.view" id="bs_purchase_order_tree">

@@ -2,4 +2,9 @@
     <menuitem name="Bookstore"
               id="bs_base_menu"
               web_icon="bookstore,static/src/img/icon.png"/>
+
+    <menuitem name="Master Data"
+              id="bs_master_data_menu"
+              parent="bs_base_menu"
+              sequence="1"/>
 </odoo>

@@ -13,7 +13,7 @@
     <menuitem name="Books"
               id="bs_book_menu"
               action="bs_book_action"
-              parent="bs_base_menu"/>
+              parent="bs_master_data_menu"/>
 
     <!-- Views -->
     <record model="ir.ui.view" id="bs_book_tree">

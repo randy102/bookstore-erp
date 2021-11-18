@@ -27,7 +27,8 @@
 
     <menuitem name="Stock Transfers"
               id="bs_stock_transfer_menu"
-              parent="bs_base_menu"/>
+              parent="bs_base_menu"
+              sequence="4"/>
 
     <menuitem name="Import"
               id="bs_stock_import_menu"

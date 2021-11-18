@@ -13,7 +13,8 @@
     <menuitem name="Sale Orders"
               id="bs_sale_order_menu"
               action="bs_sale_order_action"
-              parent="bs_base_menu"/>
+              parent="bs_base_menu"
+              sequence="2"/>
 
     <!-- Views -->
     <record model="ir.ui.view" id="bs_sale_order_tree">
