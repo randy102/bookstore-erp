@@ -67,7 +67,7 @@
                         </group>
 
                         <group string="Cover">
-                            <field name="cover" widget="image" nolabel="1" max-height="500"/>
+                            <field name="cover" widget="image" nolabel="1"/>
                         </group>
                     </group>
 
