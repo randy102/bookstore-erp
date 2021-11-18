@@ -14,7 +14,7 @@ class SaleOrder(models.Model):
     _seq_code = 'bs.sale.order'
     _rec_name = 'code'
 
-    customer_name = fields.Char()
+    customer_name = fields.Char(required=True)
     customer_address = fields.Text()
     customer_phone = fields.Char()
     state = fields.Selection(selection=SALE_STATES, default='draft')
@@ -32,6 +32,18 @@ class SaleOrder(models.Model):
             order.state = 'confirmed'
             order.date_confirmed = fields.Datetime.now()
             self.env['bs.stock.transfer'].create_export(order)
+
+    def action_open_transfer(self):
+        return {
+            'res_model': 'bs.stock.transfer',
+            'type': 'ir.actions.act_window',
+            'context': {'default_type': 'export'},
+            'res_id': self.transfer_ids.id,
+            'view_mode': 'form',
+            'view_type': 'form',
+            'view_id': self.env.ref("bookstore.bs_stock_transfer_form").id,
+            # 'target': 'new'
+        }
 
     def unlink(self):
         for sale in self:

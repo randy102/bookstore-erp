@@ -20,7 +20,7 @@ class StockTransfer(models.Model):
     _rec_name = 'code'
 
     stocker_id = fields.Many2one('bs.employee')
-    sale_id = fields.Many2one('bs.sale.order', ondelete='cascade')
+    sale_id = fields.Many2one('bs.sale.order', ondelete='cascade', readonly=True, string='Sale Order')
     line_ids = fields.One2many('bs.stock.transfer.line', 'transfer_id')
 
     date_confirmed = fields.Datetime(readonly=True)
