@@ -1,7 +1,22 @@
 <odoo>
-    <record model="ir.actions.act_window" id="bs_stock_transfer_action">
-        <field name="name">Stock Transfers</field>
+    <record model="ir.actions.act_window" id="bs_stock_transfer_export_action">
+        <field name="name">Stock Export</field>
         <field name="res_model">bs.stock.transfer</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('type','=','export')]</field>
+        <field name="context">{'default_type': 'export', 'is_export': True}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Stock Export
+            </p>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="bs_stock_transfer_import_action">
+        <field name="name">Stock Import</field>
+        <field name="res_model">bs.stock.transfer</field>
+        <field name="domain">[('type','=','import')]</field>
+        <field name="context">{'default_type': 'import', 'is_import': True}</field>
         <field name="view_mode">tree,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
@@ -12,8 +27,17 @@
 
     <menuitem name="Stock Transfers"
               id="bs_stock_transfer_menu"
-              action="bs_stock_transfer_action"
               parent="bs_base_menu"/>
+
+    <menuitem name="Import"
+              id="bs_stock_import_menu"
+              action="bs_stock_transfer_import_action"
+              parent="bs_stock_transfer_menu"/>
+
+    <menuitem name="Export"
+              id="bs_stock_export_menu"
+              action="bs_stock_transfer_export_action"
+              parent="bs_stock_transfer_menu"/>
 
     <!-- Views -->
     <record model="ir.ui.view" id="bs_stock_transfer_tree">
@@ -26,7 +50,9 @@
                        decoration-danger="type == 'export'"/>
                 <field name="state" widget="badge" decoration-success="state == 'confirmed'"
                        decoration-muted="state == 'draft'"/>
+                <field name="sale_id" string="Sale Order" invisible="context.get('default_type') == 'import'"/>
                 <field name="date_confirmed"/>
+                <field name="create_date"/>
             </tree>
         </field>
     </record>

@@ -24,7 +24,7 @@ class StockTransfer(models.Model):
     line_ids = fields.One2many('bs.stock.transfer.line', 'transfer_id')
 
     date_confirmed = fields.Datetime(readonly=True)
-    type = fields.Selection(selection=TRANSFER_TYPES, default='import')
+    type = fields.Selection(selection=TRANSFER_TYPES, readonly=True)
     state = fields.Selection(selection=TRANSFER_STATES, default='draft')
 
     def create_export(self, sale_order):
