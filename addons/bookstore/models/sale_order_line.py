@@ -5,7 +5,7 @@ class Author(models.Model):
     _name = 'bs.sale.order.line'
     _rec_name = 'book_id'
 
-    order_id = fields.Many2one('bs.sale.order')
+    order_id = fields.Many2one('bs.sale.order', ondelete='cascade')
     book_id = fields.Many2one('bs.book', required=True)
     qty = fields.Integer(default=1)
     unit_price = fields.Monetary()

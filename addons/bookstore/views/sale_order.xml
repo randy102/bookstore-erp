@@ -21,7 +21,7 @@
         <field name="model">bs.sale.order</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="name"/>
+                <field name="code"/>
                 <field name="customer_name"/>
                 <field name="state"/>
                 <field name="currency_id" invisible="1"/>
@@ -39,12 +39,14 @@
         <field name="arch" type="xml">
             <form>
                 <header>
+                    <button name="action_confirm" type="object" string="Confirm" class="oe_highlight"
+                            attrs="{'invisible': [('state','in',['confirmed','delivered'])]}"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,delivered"/>
                 </header>
                 <sheet>
                     <group>
                         <h1>
-                            <field name="name" nolabel="1" attrs="{'invisible': [('name','=',False)]}"/>
+                            <field name="code" nolabel="1" attrs="{'invisible': [('code','=',False)]}"/>
                         </h1>
                     </group>
 
@@ -63,7 +65,7 @@
 
                     <notebook>
                         <page string="Order Lines">
-                            <field name="line_ids" nolabel="1"/>
+                            <field name="line_ids" nolabel="1" attrs="{'readonly': [('state','!=','draft')]}"/>
                             <field name="currency_id" invisible="1"/>
 
                             <group name="note_group" col="6">

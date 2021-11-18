@@ -21,11 +21,11 @@
         <field name="model">bs.stock.transfer</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="name"/>
+                <field name="code"/>
                 <field name="type" widget="badge" decoration-info="type == 'import'"
                        decoration-danger="type == 'export'"/>
                 <field name="state" widget="badge" decoration-success="state == 'confirmed'"
-                       decoration-secondary="state == 'draft'"/>
+                       decoration-muted="state == 'draft'"/>
                 <field name="date_confirmed"/>
             </tree>
         </field>
@@ -44,7 +44,7 @@
                 <sheet>
                     <group>
                         <h1>
-                            <field name="name" nolabel="1" attrs="{'invisible': [('name','=',False)]}"/>
+                            <field name="code" nolabel="1" attrs="{'invisible': [('code','=',False)]}"/>
                         </h1>
                     </group>
 
@@ -60,7 +60,7 @@
 
                     <notebook>
                         <page string="Transfer Lines">
-                            <field name="line_ids" nolabel="1"/>
+                            <field name="line_ids" nolabel="1" attrs="{'readonly': [('state','!=','draft')]}"/>
                         </page>
                     </notebook>
                 </sheet>

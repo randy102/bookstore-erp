@@ -5,9 +5,10 @@ from odoo.exceptions import UserError
 class StockTransferLine(models.Model):
     _name = 'bs.stock.transfer.line'
     _rec_name = 'book_id'
+    _sql_constraints = [('unique_book', 'unique(transfer_id, book_id)', 'Duplicated books!')]
 
     book_id = fields.Many2one('bs.book')
-    transfer_id = fields.Many2one('bs.stock.transfer')
+    transfer_id = fields.Many2one('bs.stock.transfer', ondelete='cascade')
     qty = fields.Integer(default=1)
     stock_qty = fields.Integer(related='book_id.stock_qty')
     forecasted_stock_qty = fields.Integer(compute='_compute_forecasted_qty')

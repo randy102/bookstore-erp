@@ -1,4 +1,5 @@
 from odoo import models, fields, api
+from odoo.exceptions import UserError
 
 SALE_STATES = [
     ('draft', 'Draft'),
@@ -9,8 +10,10 @@ SALE_STATES = [
 
 class SaleOrder(models.Model):
     _name = 'bs.sale.order'
+    _inherit = ['bs.sequence.name']
+    _seq_code = 'bs.sale.order'
+    _rec_name = 'code'
 
-    name = fields.Char(readonly=True)
     customer_name = fields.Char()
     customer_address = fields.Text()
     customer_phone = fields.Char()
@@ -22,17 +25,19 @@ class SaleOrder(models.Model):
 
     seller_id = fields.Many2one('bs.employee')
     line_ids = fields.One2many('bs.sale.order.line', 'order_id')
+    transfer_ids = fields.One2many('bs.stock.transfer', 'sale_id')
 
-    @api.model
-    def create(self, vals):
-        vals['name'] = self.env['ir.sequence'].next_by_code('bs.sale.order')
-        return super(SaleOrder, self).create(vals)
-
-    def action_confirmed(self):
+    def action_confirm(self):
         for order in self:
             order.state = 'confirmed'
             order.date_confirmed = fields.Datetime.now()
-            # TODO: Create Stock Transfer
+            self.env['bs.stock.transfer'].create_export(order)
+
+    def unlink(self):
+        for sale in self:
+            if 'confirmed' in sale.transfer_ids.mapped('state'):
+                raise UserError('Can not delete order when transfer are confirmed')
+        super(SaleOrder, self).unlink()
 
     @api.depends('line_ids.total_amount')
     def _compute_total_amount(self):

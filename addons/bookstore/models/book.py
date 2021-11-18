@@ -6,6 +6,8 @@ from odoo import models, fields
 class Book(models.Model):
     _name = 'bs.book'
     _description = 'Book'
+    _inherit = ['bs.sequence.name']
+    _seq_code = 'bs.book'
 
     name = fields.Char()
     cover = fields.Image()
