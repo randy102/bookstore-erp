@@ -1,0 +1,14 @@
+<odoo>
+    <record model="ir.ui.view" id="bs_stock_transfer_line_tree">
+        <field name="name">Stock Transfer Line List</field>
+        <field name="model">bs.stock.transfer.line</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="book_id"/>
+                <field name="qty"/>
+                <field name="stock_qty" attrs="{'column_invisible': [('parent.state','=','confirmed')]}"/>
+                <field name="forecasted_stock_qty" attrs="{'column_invisible': [('parent.state','=','confirmed')]}"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

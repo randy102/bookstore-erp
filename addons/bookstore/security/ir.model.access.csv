@@ -5,3 +5,5 @@ access_bs_employee,bs.employee,model_bs_employee,base.group_user,1,1,1,1
 access_bs_supplier,bs.supplier,model_bs_supplier,base.group_user,1,1,1,1
 access_bs_sale_order,bs.sale.order,model_bs_sale_order,base.group_user,1,1,1,1
 access_bs_sale_order_line,bs.sale.order.line,model_bs_sale_order_line,base.group_user,1,1,1,1
+access_bs_stock_transfer,bs.stock.transfer,model_bs_stock_transfer,base.group_user,1,1,1,1
+access_bs_stock_transfer_line,bs.stock.transfer.line,model_bs_stock_transfer_line,base.group_user,1,1,1,1

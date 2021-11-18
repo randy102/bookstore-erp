@@ -1,0 +1,70 @@
+<odoo>
+    <record model="ir.actions.act_window" id="bs_stock_transfer_action">
+        <field name="name">Stock Transfers</field>
+        <field name="res_model">bs.stock.transfer</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Stock Transfer
+            </p>
+        </field>
+    </record>
+
+    <menuitem name="Stock Transfers"
+              id="bs_stock_transfer_menu"
+              action="bs_stock_transfer_action"
+              parent="bs_base_menu"/>
+
+    <!-- Views -->
+    <record model="ir.ui.view" id="bs_stock_transfer_tree">
+        <field name="name">Stock Transfer List</field>
+        <field name="model">bs.stock.transfer</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="type" widget="badge" decoration-info="type == 'import'"
+                       decoration-danger="type == 'export'"/>
+                <field name="state" widget="badge" decoration-success="state == 'confirmed'"
+                       decoration-secondary="state == 'draft'"/>
+                <field name="date_confirmed"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="bs_stock_transfer_form">
+        <field name="name">Stock Transfer Form</field>
+        <field name="model">bs.stock.transfer</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_confirm" type="object" string="Confirm" class="oe_highlight"
+                            attrs="{'invisible': [('state','=','confirmed')]}"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed"/>
+                </header>
+                <sheet>
+                    <group>
+                        <h1>
+                            <field name="name" nolabel="1" attrs="{'invisible': [('name','=',False)]}"/>
+                        </h1>
+                    </group>
+
+                    <group>
+                        <group>
+                            <field name="type"/>
+                        </group>
+
+                        <group>
+                            <field name="date_confirmed"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Transfer Lines">
+                            <field name="line_ids" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -28,5 +28,7 @@
         'views/supplier.xml',
         'views/sale_order.xml',
         'views/sale_order_line.xml',
+        'views/stock_transfer.xml',
+        'views/stock_transfer_line.xml',
     ],
 }
