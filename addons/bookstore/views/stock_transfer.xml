@@ -68,6 +68,8 @@
                 <header>
                     <button name="action_confirm" type="object" string="Confirm" class="oe_highlight"
                             attrs="{'invisible': [('state','=','confirmed')]}"/>
+                    <button name="action_print" type="object" string="Print" class="oe_highlight"
+                            attrs="{'invisible': [('state','=','draft')]}"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,confirmed"/>
                 </header>
                 <sheet>

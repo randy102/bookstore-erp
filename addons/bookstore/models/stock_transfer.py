@@ -29,6 +29,19 @@ class StockTransfer(models.Model):
     state = fields.Selection(selection=TRANSFER_STATES, default='draft')
     note = fields.Text()
 
+    @api.model
+    def create(self, vals):
+        if not vals.get('stocker_id'):
+            employee = self.env['bs.employee'].search([('user_id', '=', self._uid)])
+            vals['stocker_id'] = employee.id if employee else False
+        return super(StockTransfer, self).create(vals)
+
+    def unlink(self):
+        for transfer in self:
+            if transfer.state == 'confirmed':
+                raise UserError('Can not delete confirmed transfer!')
+        super(StockTransfer, self).unlink()
+
     def create_export(self, sale_order):
         line_data = generate_transfer_line_data(sale_order.line_ids)
         return self.create({
@@ -55,15 +68,9 @@ class StockTransfer(models.Model):
             if transfer.purchase_id:
                 transfer.purchase_id.state = 'received'
 
-    @api.model
-    def create(self, vals):
-        if not vals.get('stocker_id'):
-            employee = self.env['bs.employee'].search([('user_id', '=', self._uid)])
-            vals['stocker_id'] = employee.id if employee else False
-        return super(StockTransfer, self).create(vals)
-
-    def unlink(self):
-        for transfer in self:
-            if transfer.state == 'confirmed':
-                raise UserError('Can not delete confirmed transfer!')
-        super(StockTransfer, self).unlink()
+    def action_print(self):
+        return {
+            'type': 'ir.actions.act_url',
+            'url': f'/report/html/bookstore.report_stock_transfer/{",".join(map(str, self.mapped("id")))}',
+            'target': 'new'
+        }

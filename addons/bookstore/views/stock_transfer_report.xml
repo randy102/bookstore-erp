@@ -1,0 +1,107 @@
+<odoo>
+    <template id="report_stock_transfer">
+        <script type="text/javascript">
+            window.print()
+        </script>
+
+        <style type="text/css">
+            @media print {
+            div { border: 1px solid transparent;}
+            @page { margin: 0; }
+            }
+        </style>
+
+        <t t-foreach="docs" t-as="o">
+            <t t-set="o" t-value="o.with_context(lang='vi_VN')"/>
+            <t t-call="web.basic_layout">
+                <div class="page" style="page-break-after: always; font-family: 'arial'">
+                    <!-- Header -->
+                    <div class="row mt56">
+                        <div class="offset-4 col-4 text-center">
+                            <h2>
+                                <b>
+                                    <t t-if="o.type == 'import'">
+                                        Phiếu nhập kho
+                                    </t>
+                                    <t t-else="">
+                                        Phiếu xuất kho
+                                    </t>
+                                </b>
+                            </h2>
+                            <div class="text-center">Ngày tạo:
+                                <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y')"/>
+                            </div>
+                        </div>
+                        <div class="col-4 text-center">
+                            <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('FIM', o.code, 600, 100)"
+                                 style="width:100%;height:50px"/>
+                            <span t-field="o.code"/>
+                        </div>
+                    </div>
+                    <!-- Header -->
+
+                    <!-- Info -->
+                    <div class="row mt32">
+                        <div class="col-6">
+                            <div>
+                                <b>Nhân viên kho:</b>
+                                <span t-field="o.stocker_id.name"/>
+                            </div>
+                            <div>
+                                <b>Ghi chú:</b>
+                                <span t-esc="o.note"/>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div>
+                                <b>Ngày xác nhận:</b>
+                                <span t-esc="o.date_confirmed.strftime('%d/%m/%Y')"/>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- Info -->
+
+                    <!-- Table -->
+                    <table class="table o_main_table mt32">
+                        <thead>
+                            <tr>
+                                <th name="th_description" class="text-left">Sản phẩm</th>
+                                <th name="th_quantity" class="text-right">Số lượng</th>
+                                <th name="th_quantity" class="text-right">Tồn dầu</th>
+                                <th name="th_quantity" class="text-right">Tồn cuối</th>
+                            </tr>
+                        </thead>
+                        <tbody class="sale_tbody">
+                            <t t-foreach="o.line_ids" t-as="line">
+                                <tr>
+                                    <td name="td_name">
+                                        <span t-field="line.book_id"/>
+                                    </td>
+                                    <td name="td_quantity" class="text-right">
+                                        <span t-field="line.qty"/>
+                                    </td>
+                                   <td name="td_origin_qty" class="text-right">
+                                        <span t-field="line.origin_stock_qty"/>
+                                    </td>
+                                    <td name="td_final_qty" class="text-right">
+                                        <span t-field="line.final_stock_qty"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    <!-- Table -->
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <report id="bs_stock_transfer_report"
+            string="Stock Transfer"
+            model="bs.stock.transfer"
+            report_type="qweb-pdf"
+            name="bookstore.report_stock_transfer"
+            file="bookstore.report_stock_transfer"/>
+</odoo>
