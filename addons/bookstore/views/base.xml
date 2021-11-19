@@ -7,4 +7,9 @@
               id="bs_master_data_menu"
               parent="bs_base_menu"
               sequence="1"/>
+
+    <menuitem name="Report"
+              id="bs_report_menu"
+              parent="bs_base_menu"/>
+
 </odoo>

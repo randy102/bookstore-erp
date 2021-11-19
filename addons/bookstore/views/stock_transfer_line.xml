@@ -11,4 +11,56 @@
             </tree>
         </field>
     </record>
+
+    <record model="ir.ui.view" id="bs_stock_transfer_line_report_tree">
+        <field name="name">Stock Transfer Line Report</field>
+        <field name="model">bs.stock.transfer.line</field>
+        <field name="arch" type="xml">
+            <tree create="0" delete="0" import="0">
+                <field name="transfer_id"/>
+                <field name="book_id"/>
+                <field name="type" widget="badge" decoration-info="type == 'import'"
+                       decoration-danger="type == 'export'"/>
+                <field name="modified_stock_qty" sum="Total Modified Qty"/>
+                <field name="origin_stock_qty"/>
+                <field name="final_stock_qty"/>
+                <field name="date_confirmed"/>
+                <field name="create_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="bs_stock_transfer_line_report_search">
+        <field name="name">Stock Transfer Line Search</field>
+        <field name="model">bs.stock.transfer.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="transfer_id"/>
+                <field name="book_id"/>
+                <field name="type"/>
+                <field name="date_confirmed"/>
+                <field name="create_date"/>
+
+                <group string="Group By">
+                    <filter string="Transfer" name="transfer" context="{'group_by': 'transfer_id'}"/>
+                    <filter string="Book" name="book" context="{'group_by': 'book_id'}"/>
+                    <filter string="Confirm Date" name="date_confirmed" context="{'group_by': 'date_confirmed'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="bs_stock_transfer_report_action">
+        <field name="name">Transfer Report</field>
+        <field name="res_model">bs.stock.transfer.line</field>
+        <field name="view_mode">tree</field>
+        <field name="domain">[('state','=','confirmed')]</field>
+        <field name="view_id" ref="bs_stock_transfer_line_report_tree"/>
+        <field name="search_view_id" ref="bs_stock_transfer_line_report_search"/>
+    </record>
+
+    <menuitem name="Stock Transfers"
+              id="bs_stock_transfer_report_menu"
+              parent="bs_report_menu"
+              action="bs_stock_transfer_report_action"/>
 </odoo>
