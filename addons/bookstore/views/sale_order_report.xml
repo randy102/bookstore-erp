@@ -1,0 +1,124 @@
+<odoo>
+    <template id="report_sale_order">
+        <t t-foreach="docs" t-as="o">
+            <t t-set="o" t-value="o.with_context(lang='vi_VN')"/>
+            <t t-call="web.basic_layout">
+                <div class="page" style="page-break-after: always; font-family: 'arial'">
+                    <!-- Header -->
+                    <div class="row mt32">
+                        <div class="offset-4 col-4 text-center">
+                            <h2>
+                                <b>
+                                    Hóa đơn bán hàng
+                                </b>
+                            </h2>
+                            <div class="text-center">Ngày tạo:
+                                <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y')"/>
+                            </div>
+                        </div>
+                        <div class="col-4 text-center">
+                            <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('FIM', o.code, 600, 100)"
+                                 style="width:100%;height:50px"/>
+                            <span t-field="o.code"/>
+                        </div>
+                    </div>
+                    <!-- Header -->
+
+                    <!-- Info -->
+                    <div class="row mt32">
+                        <div class="col-6">
+                            <div>
+                                <b>Tên khách hàng:</b>
+                                <span t-field="o.customer_name"/>
+                            </div>
+                            <div>
+                                <b>Địa chỉ giao hàng:</b>
+                                <span t-field="o.customer_address"/>
+                            </div>
+                            <div>
+                                <b>Số điện thoại:</b>
+                                <span t-field="o.customer_phone"/>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div>
+                                <b>Ngày đặt hàng:</b>
+                                <span t-esc="o.create_date.strftime('%d/%m/%Y')"/>
+                            </div>
+                            <div>
+                                <b>Ngày đặt hàng:</b>
+                                <span t-esc="o.create_date.strftime('%d/%m/%Y')"/>
+                            </div>
+                            <div>
+                                <b>Ngày xác nhận:</b>
+                                <span t-esc="o.date_confirmed.strftime('%d/%m/%Y')"/>
+                            </div>
+                            <div>
+                                <b>Ghi chú:</b>
+                                <span t-esc="o.note"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Info -->
+
+                    <!-- Table -->
+                    <table class="table o_main_table mt32">
+                        <thead>
+                            <tr>
+                                <th name="th_description" class="text-left">Sản phẩm</th>
+                                <th name="th_quantity" class="text-right">Số lượng</th>
+                                <th name="th_priceunit" class="text-right">Đơn giá (đ)</th>
+                                <th name="th_subtotal" class="text-right">Thành tiền (đ)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="sale_tbody">
+                            <t t-foreach="o.line_ids" t-as="line">
+                                <tr>
+                                    <td name="td_name">
+                                        <span t-field="line.book_id"/>
+                                    </td>
+                                    <td name="td_quantity" class="text-right">
+                                        <span t-field="line.qty"/>
+                                    </td>
+                                    <td name="td_quantity" class="text-right">
+                                        <span t-field="line.unit_price"/>
+                                    </td>
+
+                                    <td name="td_subtotal" class="text-right o_price_total">
+                                        <span t-field="line.total_amount"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <div class="clearfix" name="so_total_summary">
+                        <div id="total" class="row" name="total">
+                            <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+                                <table class="table table-sm">
+                                    <tr class="border-black o_total">
+                                        <td name="td_amount_total_label">
+                                            <strong>Tổng tiền (đ)</strong>
+                                        </td>
+                                        <td name="td_amount_total" class="text-right">
+                                            <span t-field="o.total_amount"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Table -->
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <report id="bs_sale_order_report"
+            string="Sale Order"
+            model="bs.sale.order"
+            report_type="qweb-pdf"
+            name="bookstore.report_sale_order"
+            file="bookstore.report_sale_order"/>
+</odoo>

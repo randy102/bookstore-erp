@@ -22,28 +22,11 @@ class SaleOrder(models.Model):
     currency_id = fields.Many2one('res.currency', readonly=True, default=lambda s: s.env.company.currency_id)
     date_confirmed = fields.Datetime(readonly=True)
     date_delivered = fields.Datetime(readonly=True)
+    note = fields.Text()
 
     seller_id = fields.Many2one('bs.employee')
     line_ids = fields.One2many('bs.sale.order.line', 'order_id')
     transfer_ids = fields.One2many('bs.stock.transfer', 'sale_id')
-
-    def action_confirm(self):
-        for order in self:
-            order.state = 'confirmed'
-            order.date_confirmed = fields.Datetime.now()
-            self.env['bs.stock.transfer'].create_export(order)
-
-    def action_open_transfer(self):
-        return {
-            'res_model': 'bs.stock.transfer',
-            'type': 'ir.actions.act_window',
-            'context': {'default_type': 'export'},
-            'res_id': self.transfer_ids.id,
-            'view_mode': 'form',
-            'view_type': 'form',
-            'view_id': self.env.ref("bookstore.bs_stock_transfer_form").id,
-            # 'target': 'new'
-        }
 
     @api.model
     def create(self, vals):
@@ -62,3 +45,27 @@ class SaleOrder(models.Model):
     def _compute_total_amount(self):
         for order in self:
             order.total_amount = sum(order.line_ids.mapped('total_amount'))
+
+    def action_confirm(self):
+        for order in self:
+            order.state = 'confirmed'
+            order.date_confirmed = fields.Datetime.now()
+            self.env['bs.stock.transfer'].create_export(order)
+
+    def action_open_transfer(self):
+        return {
+            'res_model': 'bs.stock.transfer',
+            'type': 'ir.actions.act_window',
+            'context': {'default_type': 'export'},
+            'res_id': self.transfer_ids.id,
+            'view_mode': 'form',
+            'view_type': 'form',
+            'view_id': self.env.ref("bookstore.bs_stock_transfer_form").id,
+        }
+
+    def action_print_invoice(self):
+        return {
+            'type': 'ir.actions.act_url',
+            'url': f'/report/html/bookstore.report_sale_order/{",".join(map(str, self.mapped("id")))}',
+            'target': 'new'
+        }

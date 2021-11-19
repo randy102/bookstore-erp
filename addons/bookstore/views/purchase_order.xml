@@ -74,6 +74,10 @@
                         </group>
                     </group>
 
+                    <group>
+                        <field name="note"/>
+                    </group>
+
                     <notebook>
                         <page string="Order Lines">
                             <field name="line_ids" nolabel="1" attrs="{'readonly': [('state','!=','draft')]}"/>

@@ -28,6 +28,7 @@
         'views/supplier.xml',
         'views/sale_order.xml',
         'views/sale_order_line.xml',
+        'views/sale_order_report.xml',
         'views/purchase_order.xml',
         'views/purchase_order_line.xml',
         'views/stock_transfer.xml',

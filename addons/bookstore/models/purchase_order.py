@@ -19,6 +19,7 @@ class PurchaseOrder(models.Model):
     currency_id = fields.Many2one('res.currency', readonly=True, default=lambda s: s.env.company.currency_id)
     date_confirmed = fields.Datetime(readonly=True)
     date_received = fields.Datetime(readonly=True)
+    note = fields.Text()
 
     buyer_id = fields.Many2one('bs.employee')
     supplier_id = fields.Many2one('bs.supplier')
