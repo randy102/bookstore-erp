@@ -22,7 +22,7 @@ class PurchaseOrder(models.Model):
     note = fields.Text()
 
     buyer_id = fields.Many2one('bs.employee')
-    supplier_id = fields.Many2one('bs.supplier')
+    supplier_id = fields.Many2one('bs.supplier', required=True)
     line_ids = fields.One2many('bs.purchase.order.line', 'order_id')
     transfer_ids = fields.One2many('bs.stock.transfer', 'purchase_id')
 

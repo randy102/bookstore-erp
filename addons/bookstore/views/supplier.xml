@@ -1,20 +1,4 @@
 <odoo>
-    <record model="ir.actions.act_window" id="bs_supplier_action">
-        <field name="name">Suppliers</field>
-        <field name="res_model">bs.supplier</field>
-        <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Create a new Supplier
-            </p>
-        </field>
-    </record>
-
-    <menuitem name="Suppliers"
-              id="bs_supplier_menu"
-              action="bs_supplier_action"
-              parent="bs_base_menu"/>
-
     <!-- Views -->
     <record model="ir.ui.view" id="bs_supplier_tree">
         <field name="name">Supplier List</field>
@@ -24,6 +8,7 @@
                 <field name="name"/>
                 <field name="phone"/>
                 <field name="address"/>
+                <field name="purchase_ids"/>
             </tree>
         </field>
     </record>
@@ -44,8 +29,42 @@
                             <field name="address"/>
                         </group>
                     </group>
+
+                    <notebook>
+                        <page string="Purchase Orders">
+                            <field name="purchase_ids"/>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>
     </record>
+
+    <record model="ir.ui.view" id="bs_supplier_search">
+        <field name="name">Supplier Search</field>
+        <field name="model">bs.supplier</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="phone"/>
+                <field name="address"/>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="bs_supplier_action">
+        <field name="name">Suppliers</field>
+        <field name="res_model">bs.supplier</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Supplier
+            </p>
+        </field>
+    </record>
+
+    <menuitem name="Suppliers"
+              id="bs_supplier_menu"
+              action="bs_supplier_action"
+              parent="bs_base_menu"/>
 </odoo>

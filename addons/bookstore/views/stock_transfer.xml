@@ -1,46 +1,4 @@
 <odoo>
-    <record model="ir.actions.act_window" id="bs_stock_transfer_export_action">
-        <field name="name">Stock Export</field>
-        <field name="res_model">bs.stock.transfer</field>
-        <field name="view_mode">tree,form</field>
-        <field name="domain">[('type','=','export')]</field>
-        <field name="context">{'default_type': 'export', 'is_export': True}</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Create a new Stock Export
-            </p>
-        </field>
-    </record>
-
-    <record model="ir.actions.act_window" id="bs_stock_transfer_import_action">
-        <field name="name">Stock Import</field>
-        <field name="res_model">bs.stock.transfer</field>
-        <field name="domain">[('type','=','import')]</field>
-        <field name="context">{'default_type': 'import', 'is_import': True}</field>
-        <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Create a new Stock Transfer
-            </p>
-        </field>
-    </record>
-
-    <menuitem name="Stock Transfers"
-              id="bs_stock_transfer_menu"
-              parent="bs_base_menu"
-              sequence="4"/>
-
-    <menuitem name="Import"
-              id="bs_stock_import_menu"
-              action="bs_stock_transfer_import_action"
-              parent="bs_stock_transfer_menu"/>
-
-    <menuitem name="Export"
-              id="bs_stock_export_menu"
-              action="bs_stock_transfer_export_action"
-              parent="bs_stock_transfer_menu"/>
-
-    <!-- Views -->
     <record model="ir.ui.view" id="bs_stock_transfer_tree">
         <field name="name">Stock Transfer List</field>
         <field name="model">bs.stock.transfer</field>
@@ -105,4 +63,85 @@
             </form>
         </field>
     </record>
+
+    <record model="ir.ui.view" id="bs_stock_transfer_import_search">
+        <field name="name">Supplier Search</field>
+        <field name="model">bs.stock.transfer</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="code"/>
+                <field name="stocker_id"/>
+                <field name="type"/>
+                <field name="state"/>
+                <field name="purchase_id"/>
+                <field name="date_confirmed"/>
+                <field name="create_date"/>
+
+                <filter string="Create Date" name="create_date" date="create_date"/>
+                <filter string="Confirmed Date" name="date_confirmed" date="date_confirmed"/>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="bs_stock_transfer_export_search">
+        <field name="name">Supplier Search</field>
+        <field name="model">bs.stock.transfer</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="code"/>
+                <field name="stocker_id"/>
+                <field name="type"/>
+                <field name="state"/>
+                <field name="sale_id"/>
+                <field name="date_confirmed"/>
+                <field name="create_date"/>
+
+                <filter string="Create Date" name="create_date" date="create_date"/>
+                <filter string="Confirmed Date" name="date_confirmed" date="date_confirmed"/>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="bs_stock_transfer_export_action">
+        <field name="name">Stock Export</field>
+        <field name="res_model">bs.stock.transfer</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('type','=','export')]</field>
+        <field name="context">{'default_type': 'export', 'is_export': True}</field>
+        <field name="search_view_id" ref="bs_stock_transfer_export_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Stock Export
+            </p>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="bs_stock_transfer_import_action">
+        <field name="name">Stock Import</field>
+        <field name="res_model">bs.stock.transfer</field>
+        <field name="domain">[('type','=','import')]</field>
+        <field name="context">{'default_type': 'import', 'is_import': True}</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="bs_stock_transfer_import_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Stock Transfer
+            </p>
+        </field>
+    </record>
+
+    <menuitem name="Stock Transfers"
+              id="bs_stock_transfer_menu"
+              parent="bs_base_menu"
+              sequence="4"/>
+
+    <menuitem name="Import"
+              id="bs_stock_import_menu"
+              action="bs_stock_transfer_import_action"
+              parent="bs_stock_transfer_menu"/>
+
+    <menuitem name="Export"
+              id="bs_stock_export_menu"
+              action="bs_stock_transfer_export_action"
+              parent="bs_stock_transfer_menu"/>
 </odoo>

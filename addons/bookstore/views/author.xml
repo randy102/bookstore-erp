@@ -1,21 +1,4 @@
 <odoo>
-    <record model="ir.actions.act_window" id="bs_author_action">
-        <field name="name">Authors</field>
-        <field name="res_model">bs.author</field>
-        <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Create a new Author
-            </p>
-        </field>
-    </record>
-
-    <menuitem name="Authors"
-              id="bs_author_menu"
-              action="bs_author_action"
-              parent="bs_master_data_menu"/>
-
-    <!-- Views -->
     <record model="ir.ui.view" id="bs_author_tree">
         <field name="name">Author List</field>
         <field name="model">bs.author</field>
@@ -52,4 +35,31 @@
             </form>
         </field>
     </record>
+
+    <record model="ir.ui.view" id="bs_author_search">
+        <field name="name">Author List</field>
+        <field name="model">bs.author</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="book_ids"/>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="bs_author_action">
+        <field name="name">Authors</field>
+        <field name="res_model">bs.author</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Author
+            </p>
+        </field>
+    </record>
+
+    <menuitem name="Authors"
+              id="bs_author_menu"
+              action="bs_author_action"
+              parent="bs_master_data_menu"/>
 </odoo>

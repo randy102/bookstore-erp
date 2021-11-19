@@ -1,21 +1,5 @@
 <odoo>
-    <record model="ir.actions.act_window" id="bs_employee_action">
-        <field name="name">Employee</field>
-        <field name="res_model">bs.employee</field>
-        <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Create a new Employee
-            </p>
-        </field>
-    </record>
 
-    <menuitem name="Employees"
-              id="bs_employee_menu"
-              action="bs_employee_action"
-              parent="bs_base_menu"/>
-
-    <!-- Views -->
     <record model="ir.ui.view" id="bs_employee_tree">
         <field name="name">Employee List</field>
         <field name="model">bs.employee</field>
@@ -57,4 +41,35 @@
             </form>
         </field>
     </record>
+
+    <record model="ir.ui.view" id="bs_employee_search">
+        <field name="name">Employee List</field>
+        <field name="model">bs.employee</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="email"/>
+                <field name="phone"/>
+                <field name="address"/>
+                <field name="department"/>
+                <field name="user_id"/>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="bs_employee_action">
+        <field name="name">Employee</field>
+        <field name="res_model">bs.employee</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Employee
+            </p>
+        </field>
+    </record>
+
+    <menuitem name="Employees"
+              id="bs_employee_menu"
+              action="bs_employee_action"
+              parent="bs_base_menu"/>
 </odoo>

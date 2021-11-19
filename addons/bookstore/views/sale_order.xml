@@ -11,7 +11,6 @@
                        decoration-muted="state == 'draft'" decoration-info="state == 'delivered'"/>
                 <field name="currency_id" invisible="1"/>
                 <field name="total_amount" widget="monetary"/>
-                <field name="create_date"/>
                 <field name="date_confirmed"/>
                 <field name="date_delivered"/>
                 <field name="create_date"/>
@@ -85,6 +84,25 @@
                     </notebook>
                 </sheet>
             </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="bs_sale_order_search">
+        <field name="name">Sale Order List</field>
+        <field name="model">bs.sale.order</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="code"/>
+                <field name="seller_id"/>
+                <field name="customer_name"/>
+                <field name="state" />
+                <field name="create_date"/>
+                <field name="date_confirmed"/>
+                <field name="date_delivered"/>
+
+                <filter string="Create Date" name="create_date" date="create_date"/>
+                <filter string="Confirmed Date" name="date_confirmed" date="date_confirmed"/>
+            </search>
         </field>
     </record>
 

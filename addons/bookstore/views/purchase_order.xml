@@ -1,22 +1,4 @@
 <odoo>
-    <record model="ir.actions.act_window" id="bs_purchase_order_action">
-        <field name="name">Purchase Orders</field>
-        <field name="res_model">bs.purchase.order</field>
-        <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Create a new Purchase Order
-            </p>
-        </field>
-    </record>
-
-    <menuitem name="Purchase Orders"
-              id="bs_purchase_order_menu"
-              action="bs_purchase_order_action"
-              parent="bs_base_menu"
-              sequence="3"/>
-
-    <!-- Views -->
     <record model="ir.ui.view" id="bs_purchase_order_tree">
         <field name="name">Purchase Order List</field>
         <field name="model">bs.purchase.order</field>
@@ -29,7 +11,6 @@
                        decoration-muted="state == 'draft'" decoration-info="state == 'received'"/>
                 <field name="currency_id" invisible="1"/>
                 <field name="total_amount" widget="monetary"/>
-                <field name="create_date"/>
                 <field name="date_confirmed"/>
                 <field name="date_received"/>
                 <field name="create_date"/>
@@ -103,4 +84,40 @@
             </form>
         </field>
     </record>
+
+    <record model="ir.ui.view" id="bs_purchase_order_search">
+        <field name="name">Purchase Order List</field>
+        <field name="model">bs.purchase.order</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="code"/>
+                <field name="buyer_id"/>
+                <field name="supplier_id"/>
+                <field name="state" />
+                <field name="date_confirmed"/>
+                <field name="date_received"/>
+                <field name="create_date"/>
+
+                <filter string="Create Date" name="create_date" date="create_date"/>
+                <filter string="Confirmed Date" name="date_confirmed" date="date_confirmed"/>
+            </search>
+        </field>
+    </record>
+
+     <record model="ir.actions.act_window" id="bs_purchase_order_action">
+        <field name="name">Purchase Orders</field>
+        <field name="res_model">bs.purchase.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Purchase Order
+            </p>
+        </field>
+    </record>
+
+    <menuitem name="Purchase Orders"
+              id="bs_purchase_order_menu"
+              action="bs_purchase_order_action"
+              parent="bs_base_menu"
+              sequence="3"/>
 </odoo>

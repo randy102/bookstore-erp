@@ -1,21 +1,4 @@
 <odoo>
-    <record model="ir.actions.act_window" id="bs_book_action">
-        <field name="name">Books</field>
-        <field name="res_model">bs.book</field>
-        <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Create a new Book
-            </p>
-        </field>
-    </record>
-
-    <menuitem name="Books"
-              id="bs_book_menu"
-              action="bs_book_action"
-              parent="bs_master_data_menu"/>
-
-    <!-- Views -->
     <record model="ir.ui.view" id="bs_book_tree">
         <field name="name">Book List</field>
         <field name="model">bs.book</field>
@@ -84,4 +67,37 @@
             </form>
         </field>
     </record>
+
+    <record model="ir.ui.view" id="bs_book_search">
+        <field name="name">Book List</field>
+        <field name="model">bs.book</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="date_published"/>
+                <field name="author_ids"/>
+                <field name="create_date"/>
+
+                <filter string="Create Date" name="create_date" date="create_date"/>
+                <filter string="Published Date" name="date_published" date="date_published"/>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="bs_book_action">
+        <field name="name">Books</field>
+        <field name="res_model">bs.book</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Book
+            </p>
+        </field>
+    </record>
+
+    <menuitem name="Books"
+              id="bs_book_menu"
+              action="bs_book_action"
+              parent="bs_master_data_menu"/>
 </odoo>
