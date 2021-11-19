@@ -12,13 +12,17 @@ class StockTransferLine(models.Model):
     qty = fields.Integer(default=1)
     stock_qty = fields.Integer(related='book_id.stock_qty')
     forecasted_stock_qty = fields.Integer(compute='_compute_forecasted_qty')
+    origin_stock_qty = fields.Integer(readonly=True)
+    modified_stock_qty = fields.Integer(readonly=True)
 
     def update_stock_qty(self):
         for line in self:
             new_qty = line.forecasted_stock_qty
             if new_qty < 0:
                 raise UserError(f'{line.book_id.name} not have enough stock!')
+            line.origin_stock_qty = line.book_id.stock_qty
             line.book_id.stock_qty = new_qty
+            line.modified_stock_qty = new_qty
 
     @api.depends('book_id.stock_qty', 'transfer_id.type', 'qty')
     def _compute_forecasted_qty(self):
