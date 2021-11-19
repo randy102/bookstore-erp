@@ -6,7 +6,10 @@ from .stock_transfer import TRANSFER_STATES, TRANSFER_TYPES
 class StockTransferLine(models.Model):
     _name = 'bs.stock.transfer.line'
     _rec_name = 'book_id'
-    _sql_constraints = [('unique_book', 'unique(transfer_id, book_id)', 'Duplicated books!')]
+    _sql_constraints = [
+        ('unique_book', 'unique(transfer_id, book_id)', 'Duplicated books!'),
+        ('qty_greater_zero', 'CHECK (qty > 0)', 'Error: Qty must greater than 0!')
+    ]
 
     book_id = fields.Many2one('bs.book')
     transfer_id = fields.Many2one('bs.stock.transfer', ondelete='cascade')
