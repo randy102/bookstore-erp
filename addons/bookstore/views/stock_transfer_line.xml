@@ -41,6 +41,9 @@
                 <field name="date_confirmed"/>
                 <field name="create_date"/>
 
+                <filter string="Export" name="export" domain="[('type','=','export')]" />
+                <filter string="Import" name="import" domain="[('type','=','import')]" />
+
                 <group string="Group By">
                     <filter string="Transfer" name="transfer" context="{'group_by': 'transfer_id'}"/>
                     <filter string="Book" name="book" context="{'group_by': 'book_id'}"/>
