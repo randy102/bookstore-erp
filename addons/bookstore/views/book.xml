@@ -50,6 +50,7 @@
                             <field name="page" widget="integer"/>
                             <field name="sale_price" widget="monetary"/>
                             <field name="purchase_cost" widget="monetary"/>
+                            <field name="stock_qty" widget="monetary"/>
                             <field name="currency_id" invisible="1"/>
 
                             <label for="size_x"/>
