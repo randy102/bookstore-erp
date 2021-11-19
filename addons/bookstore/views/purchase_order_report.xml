@@ -1,5 +1,5 @@
 <odoo>
-    <template id="report_sale_order">
+    <template id="report_purchase_order">
         <script type="text/javascript">
             window.print()
         </script>
@@ -20,7 +20,7 @@
                         <div class="offset-4 col-4 text-center">
                             <h2>
                                 <b>
-                                    Hóa đơn bán hàng
+                                    Hóa đơn mua hàng
                                 </b>
                             </h2>
                             <div class="text-center">Ngày tạo:
@@ -39,28 +39,16 @@
                     <div class="row mt32">
                         <div class="col-6">
                             <div>
-                                <b>Tên khách hàng:</b>
-                                <span t-field="o.customer_name"/>
+                                <b>Nhà cung cấp:</b>
+                                <span t-field="o.supplier_id.name"/>
                             </div>
                             <div>
-                                <b>Địa chỉ giao hàng:</b>
-                                <span t-field="o.customer_address"/>
-                            </div>
-                            <div>
-                                <b>Số điện thoại:</b>
-                                <span t-field="o.customer_phone"/>
+                                <b>Ngày đặt hàng:</b>
+                                <span t-esc="o.create_date.strftime('%d/%m/%Y')"/>
                             </div>
                         </div>
 
                         <div class="col-6">
-                            <div>
-                                <b>Ngày đặt hàng:</b>
-                                <span t-esc="o.create_date.strftime('%d/%m/%Y')"/>
-                            </div>
-                            <div>
-                                <b>Ngày đặt hàng:</b>
-                                <span t-esc="o.create_date.strftime('%d/%m/%Y')"/>
-                            </div>
                             <div>
                                 <b>Ngày xác nhận:</b>
                                 <span t-esc="o.date_confirmed.strftime('%d/%m/%Y')"/>
@@ -126,10 +114,10 @@
         </t>
     </template>
 
-    <report id="bs_sale_order_report"
-            string="Sale Order"
-            model="bs.sale.order"
+    <report id="bs_purchase_order_report"
+            string="Purchase Order"
+            model="bs.purchase.order"
             report_type="qweb-pdf"
-            name="bookstore.report_sale_order"
-            file="bookstore.report_sale_order"/>
+            name="bookstore.report_purchase_order"
+            file="bookstore.report_purchase_order"/>
 </odoo>

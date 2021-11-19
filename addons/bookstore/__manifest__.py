@@ -31,6 +31,7 @@
         'views/sale_order_report.xml',
         'views/purchase_order.xml',
         'views/purchase_order_line.xml',
+        'views/purchase_order_report.xml',
         'views/stock_transfer.xml',
         'views/stock_transfer_line.xml',
     ],

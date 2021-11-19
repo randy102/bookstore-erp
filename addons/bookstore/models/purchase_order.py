@@ -26,6 +26,19 @@ class PurchaseOrder(models.Model):
     line_ids = fields.One2many('bs.purchase.order.line', 'order_id')
     transfer_ids = fields.One2many('bs.stock.transfer', 'purchase_id')
 
+    @api.model
+    def create(self, vals):
+        if not vals.get('buyer_id'):
+            employee = self.env['bs.employee'].search([('user_id', '=', self._uid)])
+            vals['buyer_id'] = employee.id if employee else False
+        return super(PurchaseOrder, self).create(vals)
+
+    def unlink(self):
+        for purchase in self:
+            if 'confirmed' in purchase.transfer_ids.mapped('state'):
+                raise UserError('Can not delete order when transfer are confirmed')
+        super(PurchaseOrder, self).unlink()
+
     def action_confirm(self):
         for order in self:
             order.state = 'confirmed'
@@ -43,20 +56,14 @@ class PurchaseOrder(models.Model):
             'view_id': self.env.ref("bookstore.bs_stock_transfer_form").id,
         }
 
-    @api.model
-    def create(self, vals):
-        if not vals.get('buyer_id'):
-            employee = self.env['bs.employee'].search([('user_id', '=', self._uid)])
-            vals['buyer_id'] = employee.id if employee else False
-        return super(PurchaseOrder, self).create(vals)
-
-    def unlink(self):
-        for purchase in self:
-            if 'confirmed' in purchase.transfer_ids.mapped('state'):
-                raise UserError('Can not delete order when transfer are confirmed')
-        super(PurchaseOrder, self).unlink()
-
     @api.depends('line_ids.total_amount')
     def _compute_total_amount(self):
         for order in self:
             order.total_amount = sum(order.line_ids.mapped('total_amount'))
+
+    def action_print_invoice(self):
+        return {
+            'type': 'ir.actions.act_url',
+            'url': f'/report/html/bookstore.report_purchase_order/{",".join(map(str, self.mapped("id")))}',
+            'target': 'new'
+        }
