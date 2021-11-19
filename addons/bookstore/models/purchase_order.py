@@ -42,6 +42,13 @@ class PurchaseOrder(models.Model):
             'view_id': self.env.ref("bookstore.bs_stock_transfer_form").id,
         }
 
+    @api.model
+    def create(self, vals):
+        if not vals.get('buyer_id'):
+            employee = self.env['bs.employee'].search([('user_id', '=', self._uid)])
+            vals['buyer_id'] = employee.id if employee else False
+        return super(PurchaseOrder, self).create(vals)
+
     def unlink(self):
         for purchase in self:
             if 'confirmed' in purchase.transfer_ids.mapped('state'):

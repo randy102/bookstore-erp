@@ -45,6 +45,13 @@ class SaleOrder(models.Model):
             # 'target': 'new'
         }
 
+    @api.model
+    def create(self, vals):
+        if not vals.get('seller_id'):
+            employee = self.env['bs.employee'].search([('user_id', '=', self._uid)])
+            vals['seller_id'] = employee.id if employee else False
+        return super(SaleOrder, self).create(vals)
+
     def unlink(self):
         for sale in self:
             if 'confirmed' in sale.transfer_ids.mapped('state'):

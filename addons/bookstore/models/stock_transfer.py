@@ -1,4 +1,4 @@
-from odoo import models, fields
+from odoo import models, fields, api
 from odoo.exceptions import UserError
 from ..helper.generate_transfer_line_data import generate_transfer_line_data
 
@@ -27,22 +27,23 @@ class StockTransfer(models.Model):
     date_confirmed = fields.Datetime(readonly=True)
     type = fields.Selection(selection=TRANSFER_TYPES, readonly=True)
     state = fields.Selection(selection=TRANSFER_STATES, default='draft')
+    note = fields.Text()
 
     def create_export(self, sale_order):
         line_data = generate_transfer_line_data(sale_order.line_ids)
-        return self.create([{
+        return self.create({
             'sale_id': sale_order.id,
             'type': 'export',
             'line_ids': line_data
-        }])
+        })
 
     def create_import(self, purchase_order):
         line_data = generate_transfer_line_data(purchase_order.line_ids)
-        return self.create([{
+        return self.create({
             'purchase_id': purchase_order.id,
             'type': 'import',
             'line_ids': line_data
-        }])
+        })
 
     def action_confirm(self):
         for transfer in self:
@@ -53,6 +54,13 @@ class StockTransfer(models.Model):
                 transfer.sale_id.state = 'delivered'
             if transfer.purchase_id:
                 transfer.purchase_id.state = 'received'
+
+    @api.model
+    def create(self, vals):
+        if not vals.get('stocker_id'):
+            employee = self.env['bs.employee'].search([('user_id', '=', self._uid)])
+            vals['stocker_id'] = employee.id if employee else False
+        return super(StockTransfer, self).create(vals)
 
     def unlink(self):
         for transfer in self:
