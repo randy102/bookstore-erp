@@ -15,7 +15,7 @@
     'author': "Bookstore",
 
     # any module necessary for this one to work correctly
-    'depends': ['base'],
+    'depends': ['base','deltatech_widget_badge'],
 
     # always loaded
     'data': [
